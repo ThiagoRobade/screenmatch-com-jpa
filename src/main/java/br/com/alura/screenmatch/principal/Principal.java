@@ -80,9 +80,9 @@ public class Principal {
 
     private void listarSeriesBuscadas() {
         List<Serie> series = new ArrayList<>();
-        dadosSeries.stream()
-                        .map(d -> new Serie(d))
-                                .collect(Collectors.toList());
+        series = dadosSeries.stream()
+                .map(Serie::new)
+                .collect(Collectors.toList());
 
         series.stream()
                         .sorted(Comparator.comparing(Serie::getGenero))
