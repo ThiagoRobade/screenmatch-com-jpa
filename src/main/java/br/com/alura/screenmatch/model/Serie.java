@@ -3,6 +3,8 @@ package br.com.alura.screenmatch.model;
 import br.com.alura.screenmatch.service.ConsultaMyMemory;
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.OptionalDouble;
 
 @Entity
@@ -25,6 +27,9 @@ public class Serie {
     private String poster;
     private String sinopse;
 
+    @OneToMany(mappedBy = "serie")
+    private List<Episodio> episodios = new ArrayList<>();
+
     public Serie() {}
 
     public Serie(DadosSerie dadosSerie) {
@@ -43,6 +48,14 @@ public class Serie {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public List<Episodio> getEpisodios() {
+        return episodios;
+    }
+
+    public void setEpisodios(List<Episodio> episodios) {
+        this.episodios = episodios;
     }
 
     public String getTitulo() {
@@ -103,14 +116,13 @@ public class Serie {
 
     @Override
     public String toString() {
-        return "Serie{" +
-                "genero=" + genero +
-                ", titulo='" + titulo + '\'' + // Adicionei a vírgula aqui
-                ", totalTemporadas=" + totalTemporadas +
-                ", avaliacao=" + avaliacao +
-                ", atores='" + atores + '\'' +
-                ", poster='" + poster + '\'' +
-                ", sinopse='" + sinopse + '\'' +
-                '}';
+        return String.format("Serie {titulo='%s', genero=%s, temporadas=%d, avaliacao=%.1f, atores='%s', poster='%s', sinopse='%s'}",
+                titulo,
+                genero,
+                totalTemporadas,
+                avaliacao,
+                atores,
+                poster,
+                sinopse);
     }
 }
